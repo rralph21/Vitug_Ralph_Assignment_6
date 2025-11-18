@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
      *
      * @param {string} name - The name of the cookie to clear.
      */
+
     function clearCookie(name) {
         document.cookie = `${encodeURIComponent(
             name
@@ -198,6 +199,9 @@ document.addEventListener("DOMContentLoaded", function () {
         // calculate score
         const score = calculateScore();
 
+        // saves score
+        saveScore(username, score);
+
         // score table
         updateScoreTable(username, score);
 
@@ -248,6 +252,18 @@ document.addEventListener("DOMContentLoaded", function () {
             <td>${score}</td>
         `;
         tableBody.appendChild(row);
+    }
+
+    function saveScore(username, score) {
+        // Get already-saved scores
+        const storedScores = localStorage.getItem("triviaScores");
+        let scoresArray = storedScores ? JSON.parse(storedScores) : [];
+
+        // Add a new score entry
+        scoresArray.push({ username, score });
+
+        // Save back to localStorage
+        localStorage.setItem("triviaScores", JSON.stringify(scoresArray));
     }
 
      /*
