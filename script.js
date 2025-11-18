@@ -163,5 +163,38 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!existingUsername || existingUsername !== username) {
             setCookie("triviaUsername", username, 7); // stores for 7 days
         }
+
+        // calculate score
+        const score = calculateScore();
+
+        // score table
+        updateScoreTable(username, score);
+
+        // alert user game is finished
+        alert(`Game finished! Your score is ${score}.`);
+
+        //unhides "New Player"
+        newPlayerButton.classList.remove("hidden");
+    }
+
+    /**
+     * Score calculation
+     * @returns {number} The player's score.
+     */
+
+    function calculateScore() {
+        let score = 0;
+
+        const selectedAnswers = document.querySelectorALL(
+            '#question-container input[type="radio"]:checked'
+        );
+
+        selectedAnswers.forEach((answer) => {
+            if (answer.dataset.correct === "true") {
+                score ++;
+            }
+        });
+
+        return score;
     }
 });
