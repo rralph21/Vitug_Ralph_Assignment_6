@@ -150,6 +150,18 @@ document.addEventListener("DOMContentLoaded", function () {
      */
     function handleFormSubmit(event) {
         event.preventDefault();
-        //... form submission logic including setting cookies and calculating score
+        
+        const username = usernameInput.value.trim();
+        if (!username) {
+            alert("Please enter your name before ending the game");
+            return;
+        }
+
+        const existingUsername = getCookie("triviaUsername");
+
+        // sets cookie only if name is changed or does not exists
+        if (!existingUsername || existingUsername !== username) {
+            setCookie("triviaUsername", username, 7); // stores for 7 days
+        }
     }
 });
