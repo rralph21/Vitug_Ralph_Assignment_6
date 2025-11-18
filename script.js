@@ -197,4 +197,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
         return score;
     }
+
+      /**
+     * Add one row to the score table with the player's name and score.
+     * @param {string} username - player's name.
+     * @param {number} score - current score.
+     */
+    function updateScoreTable(username, score) {
+        const tableBody = document
+            .getElementById("score-table")
+            .querySelector("tbody");
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${username}</td>
+            <td>${score}</td>
+        `;
+        tableBody.appendChild(row);
+    }
 });
