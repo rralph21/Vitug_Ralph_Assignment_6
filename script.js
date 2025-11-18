@@ -26,9 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const date = new Date();
         date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
         const expires = "expires=" + date.toUTCString();
-        document.cookie = `${encodeURIComponent(name)} = 
-                            ${encodeURIComponent(value
-                            )};${expires};path=/`;
+        document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(
+            value)};${expires};path=/`;
     }
 
     function getCookie(name) {
@@ -37,10 +36,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const target = name + "=";
 
         for (let cookie of cookies) {
-            decodeCookie = decodedURIComponents(document.cookie);
+            cookie = cookie.trim();
             if (cookie.indexOf(target) === 0) {
-                return cookie.substring(target.length, cookie.length);
-            }
+                return cookie.substring(target.length);
+        }
         }
         return null;
     }
@@ -58,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function checkUsername() {
-        const savedUsername = getCookies("triviaUsername");
+        const savedUsername = getCookie("triviaUsername");
         usernameInput.value = savedUsername;
     }
 
@@ -223,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function calculateScore() {
         let score = 0;
 
-        const selectedAnswers = document.querySelectorALL(
+        const selectedAnswers = document.querySelectorAll(
             '#question-container input[type="radio"]:checked'
         );
 
@@ -278,10 +277,10 @@ document.addEventListener("DOMContentLoaded", function () {
         form.reset();
 
         // removes old questions
-        questionConatiner.innerHTML = "";
+        questionContainer.innerHTML = "";
 
         // new questions
-        getchQuestions();
+        fetchQuestions();
 
         // hides "New Player"
         newPlayerButton.classList.add("hidden");
