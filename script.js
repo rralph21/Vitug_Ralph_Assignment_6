@@ -5,12 +5,60 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("trivia-form");
     const questionContainer = document.getElementById("question-container");
     const newPlayerButton = document.getElementById("new-player");
+    const usernameInput = document.getElementById("username");
 
     // Initialize the game
     // checkUsername(); Uncomment once completed
+    checkUsername():
     fetchQuestions();
     displayScores();
 
+    /**
+     * Sets a cookie with a given name, value and expiration in days.
+     *
+     * @param {string} name - The name of the cookie.
+     * @param {string} value - The value to store.
+     * @param {number} days - Days until the cookie expires.
+     */
+
+    function setCookie(name, value, days){
+        const date = new Date();
+        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+        const expires = "expires=" + date.toUTCString();
+        document.cookie = `${encodeURIComponent(name)} = 
+                            ${encodeURIComponent(value
+                            )};${expires};path=/`;
+    }
+
+    function getCookie(name) {
+        const decodeCookie = decodeURIComponent(document.cookie);
+        const cookie = decodedCookie.split(";");
+        const target = name + "=";
+
+        for (let cookie of cookies) {
+            decodeCookie = decodedURIComponents(document.cookie);
+            if (cookie.indexOf(target) === 0) {
+                return cookie.substring(target.length, cookie.length);
+            }
+        }
+        return null;
+    }
+
+     /**
+     * Clears a cookie by setting its expiry date in the past.
+     *
+     * @param {string} name - The name of the cookie to clear.
+     */
+    function clearCookie(name) {
+        document.cookie = `${encodeURIComponent(
+            name
+        )}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+    }
+
+    function checkUsername() {
+        const savedUsername = getCookies("triviaUsername");
+        usernameInput.value = savedUsername;
+    }
     /**
      * Fetches trivia questions from the API and displays them.
      */
