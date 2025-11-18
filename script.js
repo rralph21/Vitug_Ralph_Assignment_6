@@ -7,9 +7,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const newPlayerButton = document.getElementById("new-player");
     const usernameInput = document.getElementById("username");
 
+
     // Initialize the game
-    // checkUsername(); Uncomment once completed
-    checkUsername():
+    checkUserSession();
+    checkUsername();
     fetchQuestions();
     displayScores();
 
@@ -59,6 +60,36 @@ document.addEventListener("DOMContentLoaded", function () {
         const savedUsername = getCookies("triviaUsername");
         usernameInput.value = savedUsername;
     }
+
+    /**
+     * Checks if a user session exists based on the username cookie.
+     * Updates the UI depending on whether a username is saved.
+     */
+    function checkUserSession() {
+        const savedUsername = getCookie("triviaUsername");
+        const usernameInput = document.getElementById("username");
+        const newPlayerButton = document.getElementById("new-player");
+
+        if (savedUsername) {
+            // A user cookie exists → restore the session
+            usernameInput.value = savedUsername;
+
+            // Show previous session UI
+            newPlayerButton.classList.remove("hidden");
+
+            console.log("Session found for:", savedUsername);
+        } else {
+            // No cookie → user is starting fresh
+            usernameInput.value = "";
+
+            // Hide old-session UI
+            newPlayerButton.classList.add("hidden");
+
+            console.log("No existing session.");
+        }
+    }
+
+
     /**
      * Fetches trivia questions from the API and displays them.
      */
@@ -173,8 +204,11 @@ document.addEventListener("DOMContentLoaded", function () {
         // alert user game is finished
         alert(`Game finished! Your score is ${score}.`);
 
-        //unhides "New Player"
+        // unhides "New Player"
         newPlayerButton.classList.remove("hidden");
+
+        // updates UI
+        checkUserSession();
     }
 
     /**
@@ -214,5 +248,27 @@ document.addEventListener("DOMContentLoaded", function () {
             <td>${score}</td>
         `;
         tableBody.appendChild(row);
+    }
+
+     /*
+     * Resets the session for a new player:
+     */
+    function newPlayer() {
+
+        clearCookie("triviaUsername");
+
+        // clears the input and form
+        usernameInput.value = "";
+        form.reset();
+
+        // removes old questions
+        questionConatiner.innerHTML = "";
+
+        // new questions
+        getchQuestions();
+
+        // hides "New Player"
+        newPlayerButton.classList.add("hidden");
+
     }
 });
