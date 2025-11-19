@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
             cookie = cookie.trim();
             if (cookie.indexOf(target) === 0) {
                 return cookie.substring(target.length);
-        }
+            }
         }
         return null;
     }
@@ -263,6 +263,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Save back to localStorage
         localStorage.setItem("triviaScores", JSON.stringify(scoresArray));
+    }
+
+    // loads scores from localStorage and shows them in the score table.
+    function displayScores() {
+        const tableBody = document
+            .getElementById("score-table")
+            .querySelector("tbody");
+
+        // Clear existing rows
+        tableBody.innerHTML = "";
+
+        const storedScores = localStorage.getItem("triviaScores");
+        if (!storedScores) return;
+
+        const scoresArray = JSON.parse(storedScores);
+
+        scoresArray.forEach((entry) => {
+            updateScoreTable(entry.username, entry.score);
+        });
     }
 
      /*
