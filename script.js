@@ -203,9 +203,6 @@ document.addEventListener("DOMContentLoaded", function () {
         // saves score
         saveScore(username, score);
 
-        // score table
-        updateScoreTable(username, score);
-
         // alert user game is finished
         alert(`Game finished! Your score is ${score}.`);
 
@@ -214,6 +211,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // updates UI
         checkUserSession();
+
+        // score table
+        displayScores();
     }
 
     /**
