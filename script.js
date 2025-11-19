@@ -58,7 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function checkUsername() {
         const savedUsername = getCookie("triviaUsername");
-        usernameInput.value = savedUsername;
+        if (savedUsername) {
+            usernameInput.value = savedUsername;
+        }
     }
 
     /**
