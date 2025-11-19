@@ -31,8 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function getCookie(name) {
-        const decodeCookie = decodeURIComponent(document.cookie);
-        const cookie = decodedCookie.split(";");
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const cookies = decodedCookie.split(";");
         const target = name + "=";
 
         for (let cookie of cookies) {
